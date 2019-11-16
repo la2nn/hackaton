@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		013A0137237FFB3F00127446 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A0136237FFB3F00127446 /* AppDelegate.swift */; };
 		013A0139237FFB3F00127446 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A0138237FFB3F00127446 /* SceneDelegate.swift */; };
-		013A013B237FFB3F00127446 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A013A237FFB3F00127446 /* ViewController.swift */; };
-		013A013E237FFB3F00127446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013A013C237FFB3F00127446 /* Main.storyboard */; };
+		013A013B237FFB3F00127446 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A013A237FFB3F00127446 /* AuthViewController.swift */; };
 		013A0140237FFB4300127446 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 013A013F237FFB4300127446 /* Assets.xcassets */; };
 		013A0143237FFB4300127446 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 013A0141237FFB4300127446 /* LaunchScreen.storyboard */; };
+		013A014D2380072900127446 /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A014C2380072900127446 /* UserDataModel.swift */; };
+		013A0150238009D000127446 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A014F238009D000127446 /* ViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		013A0133237FFB3F00127446 /* SberbankFamilyCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SberbankFamilyCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013A0136237FFB3F00127446 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		013A0138237FFB3F00127446 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		013A013A237FFB3F00127446 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		013A013D237FFB3F00127446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		013A013A237FFB3F00127446 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		013A013F237FFB4300127446 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		013A0142237FFB4300127446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		013A0144237FFB4300127446 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		013A014C2380072900127446 /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
+		013A014F238009D000127446 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,40 @@
 		013A0135237FFB3F00127446 /* SberbankFamilyCash */ = {
 			isa = PBXGroup;
 			children = (
+				013A014E238009B700127446 /* ViewExtensions */,
+				013A014B2380071F00127446 /* UserDataModel */,
+				013A014A237FFCAD00127446 /* ViewControllers */,
 				013A0136237FFB3F00127446 /* AppDelegate.swift */,
 				013A0138237FFB3F00127446 /* SceneDelegate.swift */,
-				013A013A237FFB3F00127446 /* ViewController.swift */,
-				013A013C237FFB3F00127446 /* Main.storyboard */,
 				013A013F237FFB4300127446 /* Assets.xcassets */,
 				013A0141237FFB4300127446 /* LaunchScreen.storyboard */,
 				013A0144237FFB4300127446 /* Info.plist */,
 			);
 			path = SberbankFamilyCash;
+			sourceTree = "<group>";
+		};
+		013A014A237FFCAD00127446 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				013A013A237FFB3F00127446 /* AuthViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		013A014B2380071F00127446 /* UserDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				013A014C2380072900127446 /* UserDataModel.swift */,
+			);
+			path = UserDataModel;
+			sourceTree = "<group>";
+		};
+		013A014E238009B700127446 /* ViewExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				013A014F238009D000127446 /* ViewExtensions.swift */,
+			);
+			path = ViewExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +154,6 @@
 			files = (
 				013A0143237FFB4300127446 /* LaunchScreen.storyboard in Resources */,
 				013A0140237FFB4300127446 /* Assets.xcassets in Resources */,
-				013A013E237FFB3F00127446 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				013A013B237FFB3F00127446 /* ViewController.swift in Sources */,
+				013A013B237FFB3F00127446 /* AuthViewController.swift in Sources */,
+				013A014D2380072900127446 /* UserDataModel.swift in Sources */,
 				013A0137237FFB3F00127446 /* AppDelegate.swift in Sources */,
+				013A0150238009D000127446 /* ViewExtensions.swift in Sources */,
 				013A0139237FFB3F00127446 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +175,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		013A013C237FFB3F00127446 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				013A013D237FFB3F00127446 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		013A0141237FFB4300127446 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
