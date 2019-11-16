@@ -13,6 +13,7 @@ class CardCell: UITableViewCell {
     public static let reuseID = "CardCell"
     private var view: UIView!
     var cardImageView: UIImageView!
+    
     var cardLogo: CardLogo! {
         didSet {
             setupCardLogo()
@@ -48,13 +49,14 @@ class CardCell: UITableViewCell {
     
     private func setBalance() {
         let balanceLabel = UILabel()
-        balanceLabel.text = String(cardBalance) + " Р"
+        balanceLabel.text = String(cardBalance) + " ₽"
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(balanceLabel)
-        balanceLabel.leadingAnchor.constraint(equalTo: cardImageView.trailingAnchor, constant: 20).isActive = true
-        balanceLabel.centerYAnchor.constraint(equalTo: cardImageView.centerYAnchor).isActive = true
         balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        balanceLabel.centerYAnchor.constraint(equalTo: cardImageView.centerYAnchor).isActive = true
+        balanceLabel.leadingAnchor.constraint(equalTo: cardImageView.trailingAnchor, constant: 10).isActive = true
         balanceLabel.heightAnchor.constraint(equalTo: cardImageView.heightAnchor).isActive = true
+
         balanceLabel.numberOfLines = 1
         balanceLabel.font = UIFont.boldSystemFont(ofSize: 18)
         balanceLabel.textAlignment = .right
@@ -62,13 +64,12 @@ class CardCell: UITableViewCell {
     
     private func setCardNumber() {
         let cardNumberLabel = UILabel()
-        cardNumberLabel.text = String(cardNumber)
         cardNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardNumberLabel)
-        cardNumberLabel.leadingAnchor.constraint(equalTo: cardImageView.leadingAnchor, constant: 10).isActive = true
-        cardNumberLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
-        cardNumberLabel.topAnchor.constraint(equalTo: cardImageView.bottomAnchor, constant: 5).isActive = true
-        cardNumberLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        cardNumberLabel.leadingAnchor.constraint(equalTo: cardImageView.leadingAnchor).isActive = true
+        cardNumberLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        cardNumberLabel.topAnchor.constraint(lessThanOrEqualTo: cardImageView.bottomAnchor, constant: 5).isActive = true
+        cardNumberLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
 
         cardNumberLabel.numberOfLines = 1
         cardNumberLabel.font = UIFont.boldSystemFont(ofSize: 18)
@@ -82,18 +83,17 @@ class CardCell: UITableViewCell {
         cardImageView = UIImageView(image: UIImage(named: cardLogo.rawValue))
         cardImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardImageView)
-        cardImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
-        cardImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-        cardImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
-        cardImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2).isActive = true
+        cardImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        cardImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        cardImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        cardImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4).isActive = true
         cardImageView.contentMode = .scaleAspectFit
-        cardImageView.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

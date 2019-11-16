@@ -15,6 +15,12 @@ struct UserDataModel {
         var cardType: CardLogo
     }
     
+    struct Piggy {
+        let name: String
+        var haveMoney: Double
+        var needMoney: Double
+    }
+    
     func getCards(userName: String) -> [Card]? {
         guard let userCards = UserDefaults.standard.object(forKey: userName) as? [[String : String]] else { return nil }
         var cards = [Card]()
@@ -27,13 +33,16 @@ struct UserDataModel {
     }
     
     var data = [getRandomCard(), getRandomCard(), getRandomCard(), getRandomCard(), getRandomCard()]
+    var pigs = [Piggy(name: "На кофе", haveMoney: 1000, needMoney: 3000)]
     
     static func getRandomCard() -> Card {
-        return Card(balance: Double(Int.random(in: 2210...7362178)), cardNumber: Int.random(in: 1111111111111111...9999999999999999), cardType: CardLogo(rawValue: UserDataModel.getRandomCardName())!)
+        return Card(balance: Double(Int.random(in: 2210...150000)), cardNumber: Int.random(in: 1111111111111111...9999999999999999), cardType: CardLogo(rawValue: UserDataModel.getRandomCardName())!)
     }
     
+    
+    
     static func getRandomCardName() -> String {
-        let names = ["mir", "visa", "master"]
+        let names = ["visa", "master"]
         return names.randomElement()!
     }
 

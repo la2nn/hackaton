@@ -9,7 +9,6 @@
 import Foundation
 
 enum CardLogo: String {
-    case mir = "mir"
     case masterCard = "master"
     case visa = "visa"
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class AuthViewController: UIViewController {
     
-    private var nameField: UITextField!
+    private var nameField: CustomSizedTextField!
     private var logoView: UIImageView!
-    private var passwordField: UITextField!
+    private var passwordField: CustomSizedTextField!
     private var authButton: UIButton!
 
     override func viewDidLoad() {
@@ -46,9 +46,9 @@ class AuthViewController: UIViewController {
     }
     
     private func setNameField() {
-        nameField = UITextField()
+        nameField = CustomSizedTextField()
         nameField.backgroundColor = #colorLiteral(red: 0.9210130572, green: 0.9253756404, blue: 0.9426833987, alpha: 1)
-        nameField.placeholder = " Имя"
+        nameField.placeholder = "Имя"
         
         nameField.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(nameField)
@@ -64,7 +64,7 @@ class AuthViewController: UIViewController {
     }
     
     private func setPasswordField() {
-        passwordField = UITextField()
+        passwordField = CustomSizedTextField()
         passwordField.backgroundColor = #colorLiteral(red: 0.9210130572, green: 0.9253756404, blue: 0.9426833987, alpha: 1)
         passwordField.placeholder = " Пароль"
         

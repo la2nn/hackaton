@@ -19,6 +19,9 @@
 		013A0157238011B700127446 /* CardLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A0156238011B700127446 /* CardLogo.swift */; };
 		013A01592380190200127446 /* CustomSizedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A01582380190200127446 /* CustomSizedLabel.swift */; };
 		013A015B23802BA900127446 /* PiggyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015A23802BA900127446 /* PiggyCell.swift */; };
+		013A015E23804D9900127446 /* CustomSizedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015D23804D9900127446 /* CustomSizedTextField.swift */; };
+		013A01602380603000127446 /* AddPigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015F2380603000127446 /* AddPigViewController.swift */; };
+		013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A01612380617600127446 /* TransferMoneyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		013A0156238011B700127446 /* CardLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLogo.swift; sourceTree = "<group>"; };
 		013A01582380190200127446 /* CustomSizedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizedLabel.swift; sourceTree = "<group>"; };
 		013A015A23802BA900127446 /* PiggyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PiggyCell.swift; sourceTree = "<group>"; };
+		013A015D23804D9900127446 /* CustomSizedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizedTextField.swift; sourceTree = "<group>"; };
+		013A015F2380603000127446 /* AddPigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPigViewController.swift; sourceTree = "<group>"; };
+		013A01612380617600127446 /* TransferMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMoneyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,16 +74,15 @@
 		013A0135237FFB3F00127446 /* SberbankFamilyCash */ = {
 			isa = PBXGroup;
 			children = (
-				013A015323800E0B00127446 /* Views */,
-				013A014E238009B700127446 /* ViewExtensions */,
-				013A014B2380071F00127446 /* UserDataModel */,
-				013A014A237FFCAD00127446 /* ViewControllers */,
 				013A0136237FFB3F00127446 /* AppDelegate.swift */,
 				013A0138237FFB3F00127446 /* SceneDelegate.swift */,
+				013A0156238011B700127446 /* CardLogo.swift */,
+				013A015323800E0B00127446 /* Views */,
+				013A014B2380071F00127446 /* UserDataModel */,
+				013A014A237FFCAD00127446 /* ViewControllers */,
 				013A013F237FFB4300127446 /* Assets.xcassets */,
 				013A0141237FFB4300127446 /* LaunchScreen.storyboard */,
 				013A0144237FFB4300127446 /* Info.plist */,
-				013A0156238011B700127446 /* CardLogo.swift */,
 			);
 			path = SberbankFamilyCash;
 			sourceTree = "<group>";
@@ -87,6 +92,8 @@
 			children = (
 				013A013A237FFB3F00127446 /* AuthViewController.swift */,
 				013A015123800C7D00127446 /* MainViewController.swift */,
+				013A015F2380603000127446 /* AddPigViewController.swift */,
+				013A01612380617600127446 /* TransferMoneyViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -110,11 +117,21 @@
 		013A015323800E0B00127446 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				013A014E238009B700127446 /* ViewExtensions */,
+				013A015C23804D5E00127446 /* TableCells */,
 				013A01582380190200127446 /* CustomSizedLabel.swift */,
+				013A015D23804D9900127446 /* CustomSizedTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		013A015C23804D5E00127446 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
 				013A015423800E3700127446 /* CardCell.swift */,
 				013A015A23802BA900127446 /* PiggyCell.swift */,
 			);
-			path = Views;
+			path = TableCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,13 +207,16 @@
 				013A015523800E3700127446 /* CardCell.swift in Sources */,
 				013A013B237FFB3F00127446 /* AuthViewController.swift in Sources */,
 				013A014D2380072900127446 /* UserDataModel.swift in Sources */,
+				013A015E23804D9900127446 /* CustomSizedTextField.swift in Sources */,
 				013A0137237FFB3F00127446 /* AppDelegate.swift in Sources */,
+				013A01602380603000127446 /* AddPigViewController.swift in Sources */,
 				013A0157238011B700127446 /* CardLogo.swift in Sources */,
 				013A015223800C7D00127446 /* MainViewController.swift in Sources */,
 				013A0150238009D000127446 /* ViewExtensions.swift in Sources */,
 				013A01592380190200127446 /* CustomSizedLabel.swift in Sources */,
 				013A015B23802BA900127446 /* PiggyCell.swift in Sources */,
 				013A0139237FFB3F00127446 /* SceneDelegate.swift in Sources */,
+				013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

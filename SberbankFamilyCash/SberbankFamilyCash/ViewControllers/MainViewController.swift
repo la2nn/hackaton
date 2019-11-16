@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
         title = "Личный кабинет"
 
         tableView.register(CardCell.self, forCellReuseIdentifier: CardCell.reuseID)
+        tableView.register(PiggyCell.self, forCellReuseIdentifier: PiggyCell.reuseID)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +46,9 @@ class MainViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(showRoot))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCard))
         
+        if tableView != nil {
+            tableView.reloadData()
+        }
     }
     
     @objc private func showRoot() {
@@ -61,10 +65,15 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return UserDataModel.shared.data.count
-        case 1: return 1
+        case 1: return UserDataModel.shared.pigs.count
         default: return 0
         }
     }
@@ -72,7 +81,6 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.reuseID, for: indexPath) as! CardCell
             let cellData = UserDataModel.shared.data[indexPath.row]
             cell.cardLogo = cellData.cardType
@@ -82,10 +90,13 @@ extension MainViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            return  UITableViewCell()
-            
-            
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: PiggyCell.reuseID, for: indexPath) as! PiggyCell
+            let currentPig = UserDataModel.shared.pigs[indexPath.row]
+            cell.name = currentPig.name
+            cell.haveMoney = currentPig.haveMoney
+            cell.needMoney = currentPig.needMoney
+            cell.selectionStyle = .none
+            return cell
             
         default: return UITableViewCell()
         }
@@ -122,5 +133,44 @@ extension MainViewController: UITableViewDelegate {
         backView.addSubview(title)
         
         return backView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 40
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 1 {
+            let backView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+            backView.backgroundColor = .white
+            
+            let addPigButton = UIButton(type: .contactAdd)
+            addPigButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+            addPigButton.setTitle(" Добавить копилку", for: .normal)
+            addPigButton.addTarget(self, action: #selector(shopAddPigController), for: .touchUpInside)
+            addPigButton.backgroundColor = .clear
+            backView.addSubview(addPigButton)
+            backView.alpha = 0.9
+            
+            return backView
+        }
+        return nil
+    }
+    
+    @objc private func shopAddPigController() {
+        navigationController?.pushViewController(AddPigViewController(), animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 {
+            guard let cell = tableView.cellForRow(at: indexPath) as? CardCell else { return }
+            let transferMoneyVC = TransferMoneyViewController(cardMoney: cell.cardBalance, cardImage: cell.cardImageView.image ?? #imageLiteral(resourceName: "sberLogo"), cardNumber: cell.cardNumber)
+            navigationController?.pushViewController(transferMoneyVC, animated: true)
+        }
     }
 }
