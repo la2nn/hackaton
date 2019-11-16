@@ -22,6 +22,7 @@
 		013A015E23804D9900127446 /* CustomSizedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015D23804D9900127446 /* CustomSizedTextField.swift */; };
 		013A01602380603000127446 /* AddPigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015F2380603000127446 /* AddPigViewController.swift */; };
 		013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A01612380617600127446 /* TransferMoneyViewController.swift */; };
+		013A0166238085BE00127446 /* ContactsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A0165238085BE00127446 /* ContactsSelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		013A015D23804D9900127446 /* CustomSizedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSizedTextField.swift; sourceTree = "<group>"; };
 		013A015F2380603000127446 /* AddPigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPigViewController.swift; sourceTree = "<group>"; };
 		013A01612380617600127446 /* TransferMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMoneyViewController.swift; sourceTree = "<group>"; };
+		013A0165238085BE00127446 /* ContactsSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSelectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				013A015123800C7D00127446 /* MainViewController.swift */,
 				013A015F2380603000127446 /* AddPigViewController.swift */,
 				013A01612380617600127446 /* TransferMoneyViewController.swift */,
+				013A0165238085BE00127446 /* ContactsSelectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				013A01592380190200127446 /* CustomSizedLabel.swift in Sources */,
 				013A015B23802BA900127446 /* PiggyCell.swift in Sources */,
 				013A0139237FFB3F00127446 /* SceneDelegate.swift in Sources */,
+				013A0166238085BE00127446 /* ContactsSelectionViewController.swift in Sources */,
 				013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
