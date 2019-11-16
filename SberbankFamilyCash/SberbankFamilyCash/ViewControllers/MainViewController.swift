@@ -82,6 +82,7 @@ extension MainViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.reuseID, for: indexPath) as! CardCell
+            cell.prepareForDataSetting()
             let cellData = UserDataModel.shared.data[indexPath.row]
             cell.cardLogo = cellData.cardType
             cell.cardBalance = cellData.balance
@@ -91,6 +92,7 @@ extension MainViewController: UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PiggyCell.reuseID, for: indexPath) as! PiggyCell
+            cell.prepareForDataSetting()
             let currentPig = UserDataModel.shared.pigs[indexPath.row]
             cell.name = currentPig.name
             cell.haveMoney = currentPig.haveMoney
@@ -169,7 +171,7 @@ extension MainViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             guard let cell = tableView.cellForRow(at: indexPath) as? CardCell else { return }
-            let transferMoneyVC = TransferMoneyViewController(cardMoney: cell.cardBalance, cardImage: cell.cardImageView.image ?? #imageLiteral(resourceName: "sberLogo"), cardNumber: cell.cardNumber)
+            let transferMoneyVC = TransferMoneyViewController(cardMoney: cell.cardBalance!, cardImage: cell.cardImageView.image ?? #imageLiteral(resourceName: "sberLogo"), cardNumber: cell.cardNumber!, cellIndex: indexPath.row)
             navigationController?.pushViewController(transferMoneyVC, animated: true)
         }
     }

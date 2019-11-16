@@ -10,11 +10,16 @@ import UIKit
 
 class TransferMoneyViewController: UIViewController {
 
-    var cardMoney: Double!
+    var cardMoney: Double! {
+        didSet {
+            title = String(cardMoney) + " ₽"
+        }
+    }
     var cardImage: UIImage!
     var cardNumber: Int!
     
     var tableView: UITableView!
+    private var cellIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,10 +86,11 @@ class TransferMoneyViewController: UIViewController {
     }
     
 
-    init(cardMoney: Double, cardImage: UIImage, cardNumber: Int) {
+    init(cardMoney: Double, cardImage: UIImage, cardNumber: Int, cellIndex: Int) {
         self.cardMoney = cardMoney
         self.cardImage = cardImage
         self.cardNumber = cardNumber
+        self.cellIndex = cellIndex
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -112,6 +118,7 @@ extension TransferMoneyViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PiggyCell.reuseID, for: indexPath) as! PiggyCell
+        cell.prepareForDataSetting()
         let currentPig = UserDataModel.shared.pigs[indexPath.row]
         cell.name = currentPig.name
         cell.haveMoney = currentPig.haveMoney
@@ -139,7 +146,7 @@ extension TransferMoneyViewController: UITableViewDelegate {
                 } else {
                     UserDataModel.shared.pigs[indexPath.row].haveMoney += requestSum
                     self.cardMoney -= requestSum
-                  //  cell.haveMoney += requestSum
+                    UserDataModel.shared.data[self.cellIndex].balance -= requestSum
                     self.dismiss(animated: true, completion: { tableView.reloadData() })
                 }
             }

@@ -11,31 +11,32 @@ import UIKit
 class CardCell: UITableViewCell {
     
     public static let reuseID = "CardCell"
-    private var view: UIView!
-    var cardImageView: UIImageView!
-    
-    var cardLogo: CardLogo! {
+    private var view = UIView()
+    var cardImageView = UIImageView()
+    var balanceLabel = UILabel()
+    var cardNumberLabel = UILabel()
+
+    var cardLogo: CardLogo? {
         didSet {
-            setupCardLogo()
+            cardImageView.image = UIImage(named: cardLogo!.rawValue)
         }
     }
     
-    var cardBalance: Double! {
-       didSet {
-            setBalance()
+    var cardBalance: Double? {
+        didSet {
+            balanceLabel.text = String(cardBalance!) + " ₽"
         }
     }
     
-    var cardNumber: Int! {
-       didSet {
-            setCardNumber()
+    var cardNumber: Int? {
+        didSet {
+            cardNumberLabel.text = "xxxx xxxx xxxx " + String(String(cardNumber!).suffix(4))
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: CardCell.reuseID)
         
-        view = UIView()
         view.backgroundColor = #colorLiteral(red: 0.9210130572, green: 0.9253756404, blue: 0.9426833987, alpha: 1)
         self.contentView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -48,8 +49,6 @@ class CardCell: UITableViewCell {
     }
     
     private func setBalance() {
-        let balanceLabel = UILabel()
-        balanceLabel.text = String(cardBalance) + " ₽"
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(balanceLabel)
         balanceLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
@@ -63,7 +62,6 @@ class CardCell: UITableViewCell {
     }
     
     private func setCardNumber() {
-        let cardNumberLabel = UILabel()
         cardNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardNumberLabel)
         cardNumberLabel.leadingAnchor.constraint(equalTo: cardImageView.leadingAnchor).isActive = true
@@ -74,13 +72,9 @@ class CardCell: UITableViewCell {
         cardNumberLabel.numberOfLines = 1
         cardNumberLabel.font = UIFont.boldSystemFont(ofSize: 18)
         cardNumberLabel.textColor = .darkGray
-        
-        cardNumberLabel.text = "xxxx xxxx xxxx " + String(String(cardNumber).suffix(4))
-        
     }
     
     private func setupCardLogo() {
-        cardImageView = UIImageView(image: UIImage(named: cardLogo.rawValue))
         cardImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardImageView)
         cardImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
@@ -92,6 +86,12 @@ class CardCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func prepareForDataSetting() {
+        setupCardLogo()
+        setBalance()
+        setCardNumber()
     }
         
     override func setSelected(_ selected: Bool, animated: Bool) {
