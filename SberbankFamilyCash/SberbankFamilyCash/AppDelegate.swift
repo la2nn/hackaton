@@ -14,7 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if let filePath = Bundle.main.url(forResource: "Data", withExtension: "JSON") {
+            do {
+                let contents = try Data(contentsOf: filePath)
+                let structure = try JSONDecoder().decode(BankAccountModel.self, from: contents)
+                print(structure)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+
         return true
     }
 

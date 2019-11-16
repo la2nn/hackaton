@@ -16,6 +16,7 @@ class AddPigViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Создание нового кошелька"
         view.backgroundColor = .white
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing(sender:))))
 
@@ -69,7 +70,7 @@ class AddPigViewController: UIViewController {
         continueButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         continueButton.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1).isActive = true
         continueButton.layoutIfNeeded()
-        continueButton.layer.cornerRadius = nameField.frame.height / 3
+        continueButton.layer.cornerRadius = continueButton.frame.height / 3
     }
     
     @objc private func endEditing(sender: UITapGestureRecognizer) {
@@ -84,11 +85,19 @@ class AddPigViewController: UIViewController {
         guard let text = cashField.text else { cashField.shake() ; return }
         guard let cash = Double(text) else { cashField.shake() ; return }
         if !text.isEmpty {
-            self.navigationController?.pushViewController(ContactsSelectionViewController(), animated: true)
+            self.navigationController?.pushViewController(ContactsSelectionViewController(cash: cash, name: nameField.text!), animated: true)
         }
-
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(pop))
+    }
+    
+    @objc private func pop() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension AddPigViewController: UITextFieldDelegate {

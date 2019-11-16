@@ -23,6 +23,10 @@
 		013A01602380603000127446 /* AddPigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A015F2380603000127446 /* AddPigViewController.swift */; };
 		013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A01612380617600127446 /* TransferMoneyViewController.swift */; };
 		013A0166238085BE00127446 /* ContactsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A0165238085BE00127446 /* ContactsSelectionViewController.swift */; };
+		013A016823808B0E00127446 /* Data.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 013A016723808B0E00127446 /* Data.JSON */; };
+		013A016A23808F7500127446 /* BankAccountsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A016923808F7500127446 /* BankAccountsModel.swift */; };
+		013A016E23809CD300127446 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A016D23809CD300127446 /* ContactCell.swift */; };
+		013A017023809E5C00127446 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013A016F23809E5C00127446 /* StringExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		013A015F2380603000127446 /* AddPigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPigViewController.swift; sourceTree = "<group>"; };
 		013A01612380617600127446 /* TransferMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferMoneyViewController.swift; sourceTree = "<group>"; };
 		013A0165238085BE00127446 /* ContactsSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSelectionViewController.swift; sourceTree = "<group>"; };
+		013A016723808B0E00127446 /* Data.JSON */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.JSON; sourceTree = "<group>"; };
+		013A016923808F7500127446 /* BankAccountsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountsModel.swift; sourceTree = "<group>"; };
+		013A016D23809CD300127446 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		013A016F23809E5C00127446 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +86,6 @@
 			children = (
 				013A0136237FFB3F00127446 /* AppDelegate.swift */,
 				013A0138237FFB3F00127446 /* SceneDelegate.swift */,
-				013A0156238011B700127446 /* CardLogo.swift */,
 				013A015323800E0B00127446 /* Views */,
 				013A014B2380071F00127446 /* UserDataModel */,
 				013A014A237FFCAD00127446 /* ViewControllers */,
@@ -94,8 +101,8 @@
 			children = (
 				013A013A237FFB3F00127446 /* AuthViewController.swift */,
 				013A015123800C7D00127446 /* MainViewController.swift */,
-				013A015F2380603000127446 /* AddPigViewController.swift */,
 				013A01612380617600127446 /* TransferMoneyViewController.swift */,
+				013A015F2380603000127446 /* AddPigViewController.swift */,
 				013A0165238085BE00127446 /* ContactsSelectionViewController.swift */,
 			);
 			path = ViewControllers;
@@ -104,23 +111,18 @@
 		013A014B2380071F00127446 /* UserDataModel */ = {
 			isa = PBXGroup;
 			children = (
+				013A016723808B0E00127446 /* Data.JSON */,
+				013A016923808F7500127446 /* BankAccountsModel.swift */,
 				013A014C2380072900127446 /* UserDataModel.swift */,
+				013A0156238011B700127446 /* CardLogo.swift */,
 			);
 			path = UserDataModel;
-			sourceTree = "<group>";
-		};
-		013A014E238009B700127446 /* ViewExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				013A014F238009D000127446 /* ViewExtensions.swift */,
-			);
-			path = ViewExtensions;
 			sourceTree = "<group>";
 		};
 		013A015323800E0B00127446 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				013A014E238009B700127446 /* ViewExtensions */,
+				013A017123809E6200127446 /* Extensions */,
 				013A015C23804D5E00127446 /* TableCells */,
 				013A01582380190200127446 /* CustomSizedLabel.swift */,
 				013A015D23804D9900127446 /* CustomSizedTextField.swift */,
@@ -133,8 +135,18 @@
 			children = (
 				013A015423800E3700127446 /* CardCell.swift */,
 				013A015A23802BA900127446 /* PiggyCell.swift */,
+				013A016D23809CD300127446 /* ContactCell.swift */,
 			);
 			path = TableCells;
+			sourceTree = "<group>";
+		};
+		013A017123809E6200127446 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				013A016F23809E5C00127446 /* StringExtensions.swift */,
+				013A014F238009D000127446 /* ViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				013A016823808B0E00127446 /* Data.JSON in Resources */,
 				013A0143237FFB4300127446 /* LaunchScreen.storyboard in Resources */,
 				013A0140237FFB4300127446 /* Assets.xcassets in Resources */,
 			);
@@ -215,12 +228,15 @@
 				013A01602380603000127446 /* AddPigViewController.swift in Sources */,
 				013A0157238011B700127446 /* CardLogo.swift in Sources */,
 				013A015223800C7D00127446 /* MainViewController.swift in Sources */,
+				013A016E23809CD300127446 /* ContactCell.swift in Sources */,
 				013A0150238009D000127446 /* ViewExtensions.swift in Sources */,
 				013A01592380190200127446 /* CustomSizedLabel.swift in Sources */,
 				013A015B23802BA900127446 /* PiggyCell.swift in Sources */,
 				013A0139237FFB3F00127446 /* SceneDelegate.swift in Sources */,
+				013A016A23808F7500127446 /* BankAccountsModel.swift in Sources */,
 				013A0166238085BE00127446 /* ContactsSelectionViewController.swift in Sources */,
 				013A01622380617600127446 /* TransferMoneyViewController.swift in Sources */,
+				013A017023809E5C00127446 /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
