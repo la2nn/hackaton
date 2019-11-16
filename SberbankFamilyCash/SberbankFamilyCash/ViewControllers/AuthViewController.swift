@@ -76,6 +76,8 @@ class AuthViewController: UIViewController {
         passwordField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         passwordField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
+        passwordField.isSecureTextEntry = true
+        
         passwordField.layer.cornerRadius = 10
         passwordField.delegate = self
     }
@@ -106,7 +108,7 @@ class AuthViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = false
     }
 
     @objc private func endEditing(sender: UITapGestureRecognizer) {
@@ -119,7 +121,7 @@ class AuthViewController: UIViewController {
     @objc private func showMainScreen() {
         guard let text = nameField.text else { authButton.shake() ; return }
         guard !text.isEmpty else { authButton.shake() ; return }
-        
+        navigationController?.pushViewController(MainViewController(), animated: true)
     }
 
 }
