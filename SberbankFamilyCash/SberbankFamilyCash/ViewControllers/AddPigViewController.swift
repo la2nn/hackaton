@@ -12,7 +12,8 @@ class AddPigViewController: UIViewController {
     
     var nameField = CustomSizedTextField()
     var cashField = CustomSizedTextField()
-
+    var bankUser: BankUser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,7 +22,7 @@ class AddPigViewController: UIViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing(sender:))))
 
         let nameLabel = UILabel()
-        nameLabel.text = "Введите параметры для семейного кошелька"
+        nameLabel.text = "Введите параметры для семейной копилки"
         view.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
@@ -32,7 +33,7 @@ class AddPigViewController: UIViewController {
         nameLabel.textAlignment = .left
         nameLabel.font = UIFont.boldSystemFont(ofSize: 28)
         
-        nameField.placeholder = "Введите имя / цель кошелька"
+        nameField.placeholder = "Введите имя / цель копилки"
         view.addSubview(nameField)
         nameField.translatesAutoresizingMaskIntoConstraints = false
         nameField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
@@ -73,6 +74,15 @@ class AddPigViewController: UIViewController {
         continueButton.layer.cornerRadius = continueButton.frame.height / 3
     }
     
+    init(bankUser: BankUser) {
+        self.bankUser = bankUser
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     @objc private func endEditing(sender: UITapGestureRecognizer) {
         guard let _ = view.hitTest(sender.location(in: view), with: nil) as? UILabel else {
             view.endEditing(true)
@@ -85,7 +95,7 @@ class AddPigViewController: UIViewController {
         guard let text = cashField.text else { cashField.shake() ; return }
         guard let cash = Double(text) else { cashField.shake() ; return }
         if !text.isEmpty {
-            self.navigationController?.pushViewController(ContactsSelectionViewController(cash: cash, name: nameField.text!), animated: true)
+            self.navigationController?.pushViewController(ContactsSelectionViewController(cash: cash, name: nameField.text!, bankUser: bankUser), animated: true)
         }
     }
     

@@ -11,6 +11,16 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var tableView: UITableView!
+    var userName: String!
+    var bankUser: BankUser!
+    
+    var cardsCount: Int {
+        return bankUser.cards.count
+    }
+    
+    var pursesCount: Int {
+        return bankUser.purses.count
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +67,21 @@ class MainViewController: UIViewController {
     
     @objc private func addCard() {
         tableView.performBatchUpdates({
-            UserDataModel.shared.data.append(UserDataModel.getRandomCard())
-            tableView.insertRows(at: [IndexPath(row: UserDataModel.shared.data.count - 1, section: 0)], with: .automatic)
+            let card = Card.getRandomCard()
+            bankUser.cards.append(card)
+            UserDefaults.standard.setValue(BankUser.set(card: card, for: userName), forKey: userName)
+            tableView.insertRows(at: [IndexPath(row: cardsCount - 1, section: 0)], with: .automatic)
         }, completion: nil)
+    }
+    
+    init(userName: String) {
+        self.userName = userName
+        self.bankUser = BankUser.getBank(user: userName)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
 }
@@ -72,8 +94,8 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return UserDataModel.shared.data.count
-        case 1: return UserDataModel.shared.pigs.count
+        case 0: return cardsCount
+        case 1: return pursesCount
         default: return 0
         }
     }
@@ -83,7 +105,7 @@ extension MainViewController: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: CardCell.reuseID, for: indexPath) as! CardCell
             cell.prepareForDataSetting()
-            let cellData = UserDataModel.shared.data[indexPath.row]
+            let cellData = bankUser.cards[indexPath.row]
             cell.cardLogo = cellData.cardType
             cell.cardBalance = cellData.balance
             cell.cardNumber = cellData.cardNumber
@@ -93,7 +115,7 @@ extension MainViewController: UITableViewDataSource {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: PiggyCell.reuseID, for: indexPath) as! PiggyCell
             cell.prepareForDataSetting()
-            let currentPig = UserDataModel.shared.pigs[indexPath.row]
+            let currentPig = bankUser.purses[indexPath.row]
             cell.name = currentPig.name
             cell.haveMoney = currentPig.haveMoney
             cell.needMoney = currentPig.needMoney
@@ -109,7 +131,7 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
             case 0: return "Карты"
-            case 1: return "Семейные кошельки"
+            case 1: return "Семейные копилки"
             default: return ""
         }
     }
@@ -128,7 +150,7 @@ extension MainViewController: UITableViewDelegate {
         title.numberOfLines = 1
         switch section {
         case 0: title.text = "Карты"
-        case 1: title.text = "Семейные кошельки"
+        case 1: title.text = "Семейные копилки"
         default: break
         }
         
@@ -164,14 +186,14 @@ extension MainViewController: UITableViewDelegate {
     }
     
     @objc private func shopAddPigController() {
-        navigationController?.pushViewController(AddPigViewController(), animated: true)
+        navigationController?.pushViewController(AddPigViewController(bankUser: bankUser), animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             guard let cell = tableView.cellForRow(at: indexPath) as? CardCell else { return }
-            let transferMoneyVC = TransferMoneyViewController(cardMoney: cell.cardBalance!, cardImage: cell.cardImageView.image ?? #imageLiteral(resourceName: "sberLogo"), cardNumber: cell.cardNumber!, cellIndex: indexPath.row)
+            let transferMoneyVC = TransferMoneyViewController(cardMoney: cell.cardBalance!, cardImage: cell.cardImageView.image ?? #imageLiteral(resourceName: "sberLogo"), cardNumber: cell.cardNumber!, cellIndex: indexPath.row, bankUser: bankUser)
             navigationController?.pushViewController(transferMoneyVC, animated: true)
         }
     }

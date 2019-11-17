@@ -11,8 +11,9 @@ import UIKit
 class ContactsSelectionViewController: UIViewController {
     
     private var tableView = UITableView()
-    var cash: Double?
-    var name: String?
+    var cash: Double!
+    var name: String!
+    var bankUser: BankUser!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,7 @@ class ContactsSelectionViewController: UIViewController {
         view.backgroundColor = .white
 
         let infoLabel = UILabel()
-        infoLabel.text = "Добавьте контакты к этому кошельку"
+        infoLabel.text = "Добавьте контакты к этой копилке"
         view.addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         infoLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
@@ -60,9 +61,12 @@ class ContactsSelectionViewController: UIViewController {
     }
     
     @objc private func continueButtonPressed() {
-        UserDataModel.shared.pigs.append(UserDataModel.Piggy(name: name ?? "", haveMoney: 0, needMoney: cash ?? 0))
+        var users = [String]()
+        let _ = tableView.indexPathsForSelectedRows?.compactMap { users.append((self.tableView.cellForRow(at: $0)?.textLabel!.text)!) }
+        users.append(self.bankUser.name)
+        bankUser.purses.append(Purse(name: name, haveMoney: 0, needMoney: cash, allowsForUsers: users))
+        bankUser.setPursesIntoUserDefaultsFromCurrentBank()
         if let mainVC = navigationController!.viewControllers[1] as? MainViewController {
-           // tableView.indexPathsForSelectedRows
             self.navigationController?.popToViewController(mainVC, animated: true)
         }
     }
@@ -73,33 +77,36 @@ class ContactsSelectionViewController: UIViewController {
     }
     
     @objc private func skip() {
-        UserDataModel.shared.pigs.append(UserDataModel.Piggy(name: name ?? "", haveMoney: 0, needMoney: cash ?? 0))
+        bankUser.purses.append(Purse(name: name, haveMoney: 0, needMoney: cash, allowsForUsers: [bankUser.name]))
+        bankUser.setPursesIntoUserDefaultsFromCurrentBank()
+
         if let mainVC = navigationController!.viewControllers[1] as? MainViewController {
             self.navigationController?.popToViewController(mainVC, animated: true)
         }
     }
     
-    init(cash: Double, name: String) {
-         self.cash = cash
-         self.name = name
-         super.init(nibName: nil, bundle: nil)
-     }
-     
-     public required init?(coder aDecoder: NSCoder) {
-         super.init(coder: aDecoder)
-     }
+    init(cash: Double, name: String, bankUser: BankUser) {
+        self.cash = cash
+        self.name = name
+        self.bankUser = bankUser
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 extension ContactsSelectionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return ContactList.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.reuseID, for: indexPath)
         cell.imageView?.image = String.randomEmoji().image()
         cell.imageView?.contentMode = .center
-        cell.textLabel?.text = "Мама"
+        cell.textLabel?.text = ContactList.list[indexPath.row]
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         return cell

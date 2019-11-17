@@ -17,7 +17,7 @@ class TransferMoneyViewController: UIViewController {
     }
     var cardImage: UIImage!
     var cardNumber: Int!
-    
+    var bankUser: BankUser!
     var tableView: UITableView!
     private var cellIndex: Int!
     
@@ -58,11 +58,12 @@ class TransferMoneyViewController: UIViewController {
         transactionLabel.topAnchor.constraint(equalTo: cardImageView.bottomAnchor, constant: 20).isActive = true
         transactionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
         transactionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
+        transactionLabel.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.1).isActive = true
         
         transactionLabel.numberOfLines = 2
         transactionLabel.textAlignment = .center
         transactionLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        transactionLabel.text = "Выберете семейный кошелек для пополнения"
+        transactionLabel.text = "Выберете семейную копилку для пополнения"
         
         tableView = UITableView()
         tableView.backgroundColor = .white
@@ -70,7 +71,7 @@ class TransferMoneyViewController: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.topAnchor.constraint(equalTo: transactionLabel.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: transactionLabel.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
@@ -86,11 +87,12 @@ class TransferMoneyViewController: UIViewController {
     }
     
 
-    init(cardMoney: Double, cardImage: UIImage, cardNumber: Int, cellIndex: Int) {
+    init(cardMoney: Double, cardImage: UIImage, cardNumber: Int, cellIndex: Int, bankUser: BankUser) {
         self.cardMoney = cardMoney
         self.cardImage = cardImage
         self.cardNumber = cardNumber
         self.cellIndex = cellIndex
+        self.bankUser = bankUser
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -113,13 +115,13 @@ class TransferMoneyViewController: UIViewController {
 
 extension TransferMoneyViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UserDataModel.shared.pigs.count
+        return bankUser.purses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PiggyCell.reuseID, for: indexPath) as! PiggyCell
         cell.prepareForDataSetting()
-        let currentPig = UserDataModel.shared.pigs[indexPath.row]
+        let currentPig = bankUser.purses[indexPath.row]
         cell.name = currentPig.name
         cell.haveMoney = currentPig.haveMoney
         cell.needMoney = currentPig.needMoney
@@ -133,7 +135,7 @@ extension TransferMoneyViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) as? PiggyCell else { return }
-        let alert = UIAlertController(title: "Пополнение семейного кошелька", message: cell.name, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Пополнение семейной копилки", message: cell.name, preferredStyle: .alert)
         
         alert.addTextField { (field) in
             field.placeholder = "Сумма для перевода"
@@ -144,9 +146,11 @@ extension TransferMoneyViewController: UITableViewDelegate {
                 if requestSum > self.cardMoney {
                     return
                 } else {
-                    UserDataModel.shared.pigs[indexPath.row].haveMoney += requestSum
+                    self.bankUser.purses[indexPath.row].haveMoney += requestSum
                     self.cardMoney -= requestSum
-                    UserDataModel.shared.data[self.cellIndex].balance -= requestSum
+                    self.bankUser.cards[self.cellIndex].balance -= requestSum
+                    self.bankUser.setCardsIntoUserDefaultsFromCurrentBank()
+                    self.bankUser.setPursesIntoUserDefaultsFromCurrentBank()
                     self.dismiss(animated: true, completion: { tableView.reloadData() })
                 }
             }

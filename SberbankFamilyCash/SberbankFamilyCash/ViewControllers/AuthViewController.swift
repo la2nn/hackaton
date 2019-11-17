@@ -120,8 +120,8 @@ class AuthViewController: UIViewController {
     
     @objc private func showMainScreen() {
         guard let text = nameField.text else { authButton.shake() ; return }
-        guard !text.isEmpty else { authButton.shake() ; return }
-        navigationController?.pushViewController(MainViewController(), animated: true)
+        if text.contains("/") || text.isEmpty { authButton.shake() ; return }
+        navigationController?.pushViewController(MainViewController(userName: nameField.text!), animated: true)
     }
 
 }
